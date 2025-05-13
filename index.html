@@ -139,5 +139,30 @@
     </div>
   </div>
 
+  <!-- Script para capturar UTM e vendedora -->
+  <script>
+    function getUTMParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param) || '(not set)';
+    }
+
+    const utmParams = {
+      utm_source: getUTMParam('utm_source'),
+      utm_medium: getUTMParam('utm_medium'),
+      utm_campaign: getUTMParam('utm_campaign')
+    };
+
+    document.querySelectorAll('.btn').forEach(button => {
+      button.addEventListener('click', function() {
+        const vendedora = this.getAttribute('data-vendedora');
+
+        gtag('event', 'clique_whatsapp', {
+          vendedora: vendedora,
+          ...utmParams
+        });
+      });
+    });
+  </script>
+
 </body>
 </html>
