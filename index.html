@@ -20,25 +20,44 @@
 
   <style>
     * { box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
       font-family: 'Poppins', sans-serif;
       background-color: #ececec;
       color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start; /* alinha mais para o topo */
       text-align: center;
-      padding: 20px;
-      margin: 0;
+      min-height: 100vh;
     }
-    .logo { margin-bottom: 40px; }
+
+    .container {
+      padding: 20px;
+      margin-top: 40px; /* move um pouco para baixo, mas ainda perto do topo */
+    }
+
+    .logo {
+      margin-bottom: 40px;
+    }
+
     .logo img {
       width: 100%;
       max-width: 180px;
       height: auto;
     }
+
     p {
       font-size: 1.2em;
       color: #666;
       margin-bottom: 20px;
     }
+
     .vendedoras {
       display: flex;
       flex-direction: column;
@@ -49,6 +68,7 @@
       padding: 0 10px;
       margin-top: 30px;
     }
+
     .vendedora {
       background-color: #a4a39f;
       border-radius: 50px;
@@ -60,6 +80,7 @@
       align-items: center;
       justify-content: center;
     }
+
     .vendedora img {
       width: 30px;
       height: 30px;
@@ -67,6 +88,7 @@
       margin-right: 10px;
       flex-shrink: 0;
     }
+
     .btn {
       font-family: 'Montserrat', sans-serif !important;
       display: flex;
@@ -83,12 +105,22 @@
       width: 100%;
       transition: background-color 0.3s;
     }
-    .btn span { color: black; }
-    .btn:hover { background-color: #9a9a9a; }
+
+    .btn span {
+      color: black;
+    }
+
+    .btn:hover {
+      background-color: #9a9a9a;
+    }
 
     @media (max-width: 480px) {
-      .logo img { width: 150px; }
-      p { font-size: 1em; }
+      .logo img {
+        width: 150px;
+      }
+      p {
+        font-size: 1em;
+      }
       .btn {
         font-size: 0.9em;
         padding: 8px 14px;
@@ -98,47 +130,49 @@
 </head>
 <body>
 
-  <!-- Logo da Lemise -->
-  <div class="logo">
-    <img src="https://imgur.com/NZ4p34Q.png" alt="Logo Lemise" />
-  </div>
+  <div class="container">
+    <!-- Logo da Lemise -->
+    <div class="logo">
+      <img src="https://imgur.com/NZ4p34Q.png" alt="Logo Lemise" />
+    </div>
 
-  <p>Fale conosco pelo nosso número oficial no WhatsApp:</p>
+    <p>Fale conosco pelo nosso número oficial no WhatsApp:</p>
 
-  <div class="vendedoras">
-    <div class="vendedora">
-      <a class="btn" data-vendedora="Raiany" href="https://wa.me/5511958335909?text=Oi%2C+quero+falar+com+a+Lemise!" target="_blank" rel="noopener noreferrer">
-        <img src="https://i.imgur.com/LboOSwS.jpeg" alt="Raiany" />
-        <span>Falar com a Lemise</span>
-      </a>
+    <div class="vendedoras">
+      <div class="vendedora">
+        <a class="btn" data-vendedora="Raiany" href="https://wa.me/5511958335909?text=Oi%2C+quero+falar+com+a+Lemise!" target="_blank" rel="noopener noreferrer">
+          <img src="https://i.imgur.com/LboOSwS.jpeg" alt="Raiany" />
+          <span>Falar com a Lemise</span>
+        </a>
+      </div>
     </div>
   </div>
 
   <script>
-  function getUTMParam(param) {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(param) || '(not set)';
-  }
+    function getUTMParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param) || '(not set)';
+    }
 
-  const utmParams = {
-    utm_source: getUTMParam('utm_source'),
-    utm_medium: getUTMParam('utm_medium'),
-    utm_campaign: getUTMParam('utm_campaign')
-  };
+    const utmParams = {
+      utm_source: getUTMParam('utm_source'),
+      utm_medium: getUTMParam('utm_medium'),
+      utm_campaign: getUTMParam('utm_campaign')
+    };
 
-  document.querySelectorAll('.btn').forEach(button => {
-    button.addEventListener('click', function() {
-      const vendedora = this.getAttribute('data-vendedora');
+    document.querySelectorAll('.btn').forEach(button => {
+      button.addEventListener('click', function() {
+        const vendedora = this.getAttribute('data-vendedora');
 
-      gtag('event', 'clique_whatsapp', {
-        vendedora: vendedora,
-        utm_source: utmParams.utm_source,
-        utm_medium: utmParams.utm_medium,
-        utm_campaign: utmParams.utm_campaign,
-        page_location: window.location.href
+        gtag('event', 'clique_whatsapp', {
+          vendedora: vendedora,
+          utm_source: utmParams.utm_source,
+          utm_medium: utmParams.utm_medium,
+          utm_campaign: utmParams.utm_campaign,
+          page_location: window.location.href
+        });
       });
     });
-  });
   </script>
 
 </body>
